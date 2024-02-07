@@ -1,14 +1,14 @@
 import { ConnectWallet, Web3Button, useUser } from "@thirdweb-dev/react"
 import { CONTRACT_ADDRESS } from "../lib/constants"
 import { useRouter } from "next/router";
-import { useEffect } from "react";}
+import { useEffect } from "react";
 
 const Mint = () => {
   const{isLoggedIn,isLoading}=useUser();
   const router= useRouter();
   
   useEffect(() =>{
-   if( !isLoggedIn && !!isLoading){
+   if( !isLoggedIn && !isLoading){
     router.push("/login");
    }
 

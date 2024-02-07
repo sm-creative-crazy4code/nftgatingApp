@@ -1,11 +1,24 @@
-import { ConnectWallet, ThirdwebSDK } from "@thirdweb-dev/react";
+import { ConnectWallet, ThirdwebSDK ,useUser} from "@thirdweb-dev/react";
 import styles from "../styles/Home.module.css";
 import Image from "next/image";
 import { NextPage } from "next";
 import Thirdweb, { getUser } from "./api/auth/[...thirdweb]";
 import { Sepolia } from "@thirdweb-dev/chains";
 import checkbalance from "../utils/checkbalance";
+import { useEffect } from "react";
+import { useRouter } from "next/router";
 const Home: NextPage = () => {
+
+  const{isLoggedIn,isLoading}=useUser();
+  const router= useRouter();
+ useEffect(()=>{
+  if( !isLoggedIn && !isLoading){
+    router.push("/login");
+   }
+
+
+  },[isLoggedIn,isLoading,router])
+
   return (
     <main className={styles.main}>
       <div className={styles.container}>
@@ -17,7 +30,7 @@ const Home: NextPage = () => {
          
       </div>
     </main>
-  );
+  )
 };
 
 export default Home;
@@ -30,7 +43,7 @@ export async function getServerSideProps(context:any){
     return{
       redirect:{
         destination:"/login",
-        permanant:false,
+        permanent:false,
       }
     }
   }
@@ -42,7 +55,7 @@ export async function getServerSideProps(context:any){
 
   //check if user holds nft
   const sdk=ThirdwebSDK.fromPrivateKey(
-    process.env.SECRET_KEY as string,
+    process.env.THIRDWEB_AUTH_PRIVATE_KEY as string,
     Sepolia,
     {secretKey:process.env.SECRET_KEY }
 
@@ -54,7 +67,7 @@ export async function getServerSideProps(context:any){
     return{
       redirect:{
         destination:"/mint",
-        permanant:false,
+        permanent:false,
       }
     }
 
