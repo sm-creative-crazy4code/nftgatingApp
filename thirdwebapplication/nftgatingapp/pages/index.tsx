@@ -1,6 +1,7 @@
 import { ConnectWallet, ThirdwebSDK ,useUser} from "@thirdweb-dev/react";
 import styles from "../styles/Home.module.css";
 import Image from "next/image";
+import {Navigation} from "../components"
 import { NextPage } from "next";
 import Thirdweb, { getUser } from "./api/auth/[...thirdweb]";
 import { Sepolia } from "@thirdweb-dev/chains";
@@ -20,15 +21,13 @@ const Home: NextPage = () => {
   },[isLoggedIn,isLoading,router])
 
   return (
-    <main className={styles.main}>
-      <div className={styles.container}>
-        
-              <h1>Intial login page</h1>
-<ConnectWallet/>
+    <main className="w-full h-full bg-gray-900 ">
+     <Navigation/>
+             
         
             
          
-      </div>
+    
     </main>
   )
 };

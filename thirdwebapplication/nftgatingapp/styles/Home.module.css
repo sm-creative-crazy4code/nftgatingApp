@@ -1,9 +1,9 @@
-.container {
-  width: 100%;
-  max-width: 1440px;
-  padding: 0 1rem;
-  margin: 0 auto;
-}
+/* .container {
+  /* width: 100%;
+  max-width: 1440px; */
+  /* padding: 0 1rem;
+  margin: 0 auto; */
+
 
 .gradientText0 {
   background: -webkit-linear-gradient(#bfa3da, #84309c, #c735b0);
@@ -13,21 +13,21 @@
 }
 
 .gradientText1 {
-  background: -webkit-linear-gradient(#a79af9, #7aa8d2);
+  background: -webkit-linear-gradient(#1c0997, #8cb2d5);
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
 }
 
 .gradientText2 {
-  background: -webkit-linear-gradient(#bfa3da, #743f93);
+  background: -webkit-linear-gradient(#43168a, #7e88f1);
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
 }
 
 .gradientText3 {
-  background: -webkit-linear-gradient(#c35ab1, #e9a8d9);
+  background: -webkit-linear-gradient(#5a66c3, #d2a8e9);
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
