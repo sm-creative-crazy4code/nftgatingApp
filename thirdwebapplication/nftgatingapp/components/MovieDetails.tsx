@@ -1,12 +1,11 @@
 import React from 'react'
 
-const VideoStreaming = () => {
+const MovieDetails = () => {
   return (
     <div>
-       
       
     </div>
   )
 }
 
-export default VideoStreaming
+export default MovieDetails
