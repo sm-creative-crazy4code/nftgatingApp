@@ -10,19 +10,26 @@ import { Sepolia } from "@thirdweb-dev/chains";
 import checkbalance from "../utils/checkbalance";
 import { useEffect } from "react";
 import { useRouter } from "next/router";
+import { GetServerSideProps } from "next";
+import { IndividulalMovieFormat,ApiResponse } from "../utils/movieinterface";
 
 
+interface MoviePosterProps{
+  fetchedMovies:IndividulalMovieFormat[];
+}
 
-const Home: NextPage = ({
-    moviePosters,
-    trendingNow,
-    toprated,
-    actionMovies,
-    comedyMovies,
-    horrorMovies,
-    romanceMovie,
-    documentaries,
-}) => {
+export const GetServerSidePropses:GetServerSideProps<MoviePosterProps>=async()=>{
+  const APIresponse= await fetch("");
+  const movieResponse:ApiResponse = await APIresponse.json();
+  return {
+    props :{
+       fetchedMovies: movieResponse.results
+    }
+  }
+
+}
+
+const Home: NextPage = () => {
 
   const{isLoggedIn,isLoading}=useUser();
   const router= useRouter();
@@ -37,7 +44,7 @@ const Home: NextPage = ({
   return (
     <main className="w-full h-full bg-gray-900 ">
      <Navigation/>
-     <Banner MoviePoster={moviePosters} />      
+     {/* <Banner MoviePoster={moviePosters} />       */}
         
             
          
@@ -114,15 +121,15 @@ export async function getServerSideProps(context:any){
 
   return {
     props:{
-     session,
-     moviePosters:moviePosters.results,
-     trendingNow:trendingNow.results,
-     toprated: toprated.results,
-     actionMovies:actionMovies.results,
-     comedyMovies:comedyMovies.results,
-     horrorMovies:horrorMovies.results,
-     romanceMovie:romanceMovie.results,
-     documentaries:documentaries.results,
+     session
+    //  moviePosters:moviePosters.results,
+    //  trendingNow:trendingNow.results,
+    //  toprated: toprated.results,
+    //  actionMovies:actionMovies.results,
+    //  comedyMovies:comedyMovies.results,
+    //  horrorMovies:horrorMovies.results,
+    //  romanceMovie:romanceMovie.results,
+    //  documentaries:documentaries.results,
 
     }
   }
