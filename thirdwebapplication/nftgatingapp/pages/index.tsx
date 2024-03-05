@@ -18,17 +18,17 @@ interface MoviePosterProps{
   fetchedMovies:IndividulalMovieFormat[];
 }
 
-export const GetServerSidePropses:GetServerSideProps<MoviePosterProps>=async()=>{
-  const APIresponse= await fetch("https://api.themoviedb.org/3/search/movie?query=Jack+Reacher&api_key=586a1ea1e9b2264150386e47403bb220");
-  const movieResponse:ApiResponse = await APIresponse.json();
-  console.log(movieResponse)
-  return {
-    props :{
-       fetchedMovies: movieResponse.results
-    }
-  }
+// export const GetServerSidePropses:GetServerSideProps<MoviePosterProps>=async()=>{
+//   const APIresponse= await fetch("https://api.themoviedb.org/3/discover/movie?include_adult=false&include_video=false&language=en-US&page=1&sort_by=popularity.desc&api_key=586a1ea1e9b2264150386e47403bb220");
+//   const movieResponse:ApiResponse = await APIresponse.json();
+//   console.log(movieResponse)
+//   return {
+//     props :{
+//        fetchedMovies: movieResponse.results
+//     }
+//   }
 
-}
+// }
 
 export default function Home  ({fetchedMovies}:MoviePosterProps){
 
@@ -49,14 +49,22 @@ export default function Home  ({fetchedMovies}:MoviePosterProps){
      <Navigation/>
      
        {/* {console.log(fetchedMovies)}  */}
-     <div className="flex-col justify-center item-center">
+     <div className="grid grid-cols-5 p-2 m-1  w-full">
 
       {fetchedMovies.map((movie)=>(
-        <div className="w-[100px] h-[100px] bg-slate-700 ">
-         <div className="w-full h-1/2">
-          <img className="w-full h-full" src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`} />
+        <div className="w-[95%] h-[453px] bg-slate-700 my-5 rounded-md group">
+         <div className=" w-full h-full rounded-md relative  overflow-hidden">
+          <img className="w-full h-full rounded-lg" src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`} />
+          <div className="absolute w-full h-full bg-black -bottom-10 group-hover:bottom-0 opacity-0 group-hover:opacity-70 transition-all duration-300 p-6">
+          <h1 className="text-white z-10 text-[23px] font-bold">{movie.title}</h1>
+          <p className="text-slate-300 text-[12px] leading-[15px] text-left font-light  mt-4"> {movie.overview}</p>
           </div>
-          <h1 className="text-white font-bold">{movie.title}</h1>
+           
+
+          
+          
+          </div>
+          {/* <h1 className="text-white font-bold">{movie.title}</h1> */}
 
         </div>
 
@@ -110,8 +118,8 @@ export async function getServerSideProps(context:any){
     }
 
   }
-
-  const APIresponse= await fetch("https://api.themoviedb.org/3/search/movie?query=Jack+Reacher&api_key=586a1ea1e9b2264150386e47403bb220");
+// 586a1ea1e9b2264150386e47403bb220
+  const APIresponse= await fetch("https://api.themoviedb.org/3/discover/movie?include_adult=false&include_video=false&language=en-US&page=1&sort_by=popularity.desc&api_key=586a1ea1e9b2264150386e47403bb220");
   const movieResponse:ApiResponse = await APIresponse.json();
   console.log(movieResponse)
 
