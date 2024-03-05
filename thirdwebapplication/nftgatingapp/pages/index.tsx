@@ -19,8 +19,9 @@ interface MoviePosterProps{
 }
 
 export const GetServerSidePropses:GetServerSideProps<MoviePosterProps>=async()=>{
-  const APIresponse= await fetch("");
+  const APIresponse= await fetch("https://api.themoviedb.org/3/search/movie?query=Jack+Reacher&api_key=586a1ea1e9b2264150386e47403bb220");
   const movieResponse:ApiResponse = await APIresponse.json();
+  console.log(movieResponse)
   return {
     props :{
        fetchedMovies: movieResponse.results
@@ -29,7 +30,7 @@ export const GetServerSidePropses:GetServerSideProps<MoviePosterProps>=async()=>
 
 }
 
-const Home: NextPage = () => {
+export default function Home  ({fetchedMovies}:MoviePosterProps){
 
   const{isLoggedIn,isLoading}=useUser();
   const router= useRouter();
@@ -42,18 +43,34 @@ const Home: NextPage = () => {
   },[isLoggedIn,isLoading,router])
 
   return (
+
+ 
     <main className="w-full h-full bg-gray-900 ">
      <Navigation/>
-     {/* <Banner MoviePoster={moviePosters} />       */}
-        
-            
+     
+       {/* {console.log(fetchedMovies)}  */}
+     <div className="flex-col justify-center item-center">
+
+      {fetchedMovies.map((movie)=>(
+        <div className="w-[100px] h-[100px] bg-slate-700 ">
+         <div className="w-full h-1/2">
+          <img className="w-full h-full" src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`} />
+          </div>
+          <h1 className="text-white font-bold">{movie.title}</h1>
+
+        </div>
+
+      ))}
+      
+      
+      </div>        
          
     
     </main>
   )
 };
 
-export default Home;
+
 
 export async function getServerSideProps(context:any){
   //user access check
@@ -94,26 +111,31 @@ export async function getServerSideProps(context:any){
 
   }
 
+  const APIresponse= await fetch("https://api.themoviedb.org/3/search/movie?query=Jack+Reacher&api_key=586a1ea1e9b2264150386e47403bb220");
+  const movieResponse:ApiResponse = await APIresponse.json();
+  console.log(movieResponse)
 
-  const[
-    moviePosters,
-    trendingNow,
-    toprated,
-    actionMovies,
-    comedyMovies,
-    horrorMovies,
-    romanceMovie,
-    documentaries,
-]= await Promise.all([
-     fetch(requests.fetchMoviePoster).then((res)=>res.json),
-     fetch(requests.fetchTrending).then((res)=>res.json),
-     fetch(requests.fetchTopRated).then((res)=>res.json),
-     fetch(requests.fetchActionMovie).then((res)=>res.json),
-     fetch(requests.fetchComedyMovie).then((res)=>res.json),
-     fetch(requests.fetchHorrorMovie).then((res)=>res.json),
-     fetch(requests.fetchRomanceMovie).then((res)=>res.json),
-     fetch(requests.fetchDocumantaryMovie).then((res)=>res.json),
-]);
+
+
+//   const[
+//     moviePosters,
+//     trendingNow,
+//     toprated,
+//     actionMovies,
+//     comedyMovies,
+//     horrorMovies,
+//     romanceMovie,
+//     documentaries,
+// ]= await Promise.all([
+//      fetch(requests.fetchMoviePoster).then((res)=>res.json),
+//      fetch(requests.fetchTrending).then((res)=>res.json),
+//      fetch(requests.fetchTopRated).then((res)=>res.json),
+//      fetch(requests.fetchActionMovie).then((res)=>res.json),
+//      fetch(requests.fetchComedyMovie).then((res)=>res.json),
+//      fetch(requests.fetchHorrorMovie).then((res)=>res.json),
+//      fetch(requests.fetchRomanceMovie).then((res)=>res.json),
+//      fetch(requests.fetchDocumantaryMovie).then((res)=>res.json),
+// ]);
 
   
 
@@ -121,7 +143,8 @@ export async function getServerSideProps(context:any){
 
   return {
     props:{
-     session
+     session,
+     fetchedMovies: movieResponse.results
     //  moviePosters:moviePosters.results,
     //  trendingNow:trendingNow.results,
     //  toprated: toprated.results,
